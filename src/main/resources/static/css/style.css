@@ -1,3 +1,37 @@
+@font-face {
+    font-family: Overlock;
+    src: url('/fonts/Overlock-Regular.ttf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Overlock', sans-serif !important;
+    background: #d3cfcf !important;
+}
+
+.icon-sm {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.icon-md {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.icon-lg {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+
+.hidden{
+    display: none;
+}
+
 .error_body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #9b59b6, #8e44ad);

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{fragments/head :: head(~{::title})}">
     <title>Task Management</title>
 </head>
 <body>
 <div>
-    Home Page
+    <nav th:replace="~{fragments/navbar :: navbar}"></nav>
 </div>
 </body>
 </html>
