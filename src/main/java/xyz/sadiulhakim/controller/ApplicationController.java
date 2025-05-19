@@ -10,9 +10,4 @@ public class ApplicationController {
     String loginPage() {
         return "login_page";
     }
-
-    @GetMapping("/register_page")
-    String registerPage() {
-        return "register_page";
-    }
 }

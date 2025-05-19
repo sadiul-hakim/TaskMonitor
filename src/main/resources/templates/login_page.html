@@ -1,130 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login Page</title>
-  <style>
-    :root {
-      --primary: #007bff;
-      --primary-hover: #0056b3;
-      --error-color: #e63946;
-      --success-color: #2a9d8f;
-      --bg-color: #f4f6f8;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg-color);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-
-    .login-container {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
-      width: 90%;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-      font-size: 1.6rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-weight: 500;
-      color: #444;
-    }
-
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 0.65rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      background-color: var(--primary);
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .button:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .message {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.95rem;
-    }
-
-    .error {
-      color: var(--error-color);
-    }
-
-    .logout {
-      color: var(--success-color);
-    }
-
-    @media (max-width: 500px) {
-      .login-container {
-        padding: 1.5rem;
-      }
-
-      h2 {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+<head th:replace="~{fragments/head :: head(~{::title})}">
+    <title>Login Page</title>
 </head>
 <body>
-<div class="login-container">
-  <h2>Login</h2>
-
-  <form th:action="@{/login}" method="post">
-    <div>
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" required />
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-4 card mx-auto p-3">
+            <a th:href="@{/oauth2/authorization/google}" class="btn btn-primary text-light my-2">
+                <img th:src="@{'/image/google.svg'}" class="img-fluid icon-sm" alt="google"/>
+                <span class="ms-2">Continue with Google</span>
+            </a>
+        </div>
     </div>
-
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
-    </div>
-
-    <button type="submit" class="button">Login</button>
-  </form>
-
-  <div class="message error" th:if="${param.error}">
-    Invalid username or password
-  </div>
-
-  <div class="message logout" th:if="${param.logout}">
-    You have been logged out
-  </div>
 </div>
 </body>
 </html>
