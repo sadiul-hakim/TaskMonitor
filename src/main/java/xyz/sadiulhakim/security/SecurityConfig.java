@@ -22,7 +22,7 @@ class SecurityConfig {
                 "/css/**",
                 "/fonts/**",
                 "/js/**",
-                "/images/**",
+                "/image/**",
                 "/picture/**",
         };
 

@@ -1,6 +1,7 @@
 package xyz.sadiulhakim.task;
 
 import jakarta.persistence.*;
+import xyz.sadiulhakim.enumeration.Priority;
 import xyz.sadiulhakim.enumeration.TaskStatus;
 import xyz.sadiulhakim.user.User;
 
@@ -27,6 +28,9 @@ public class Task {
     private Instant endTime;
 
     @Enumerated(EnumType.STRING)
+    private Priority priority;
+
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
     @ManyToOne
@@ -46,17 +50,26 @@ public class Task {
     }
 
     public Task(Integer id, String instruction, User assignee, Long estimateTime, Instant startTime, Instant endTime,
-                TaskStatus status, Task parent, List<Task> subtasks, String remark) {
+                Priority priority, TaskStatus status, Task parent, List<Task> subtasks, String remark) {
         this.id = id;
         this.instruction = instruction;
         this.assignee = assignee;
         this.estimateTime = estimateTime;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.priority = priority;
         this.status = status;
         this.parent = parent;
         this.subtasks = subtasks;
         this.remark = remark;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public Integer getId() {
