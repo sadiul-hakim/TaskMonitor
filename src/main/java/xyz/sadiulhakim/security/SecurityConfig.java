@@ -8,27 +8,41 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 class SecurityConfig {
 
-    private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+    private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(CustomAuthenticationSuccessHandler authenticationSuccessHandler) {
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
     SecurityFilterChain config(HttpSecurity http) throws Exception {
-        String[] permittedApis = {
+
+        String[] publicApi = {
+                "/",
                 "/css/**",
+                "/fonts/**",
                 "/js/**",
-                "/image/**"
+                "/images/**",
+                "/picture/**",
         };
 
+        String[] adminAccess = {
+
+        };
         return http
-                .authorizeHttpRequests(auth -> auth.requestMatchers(permittedApis).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(publicApi).permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers(adminAccess).hasAnyRole("ADMIN", "ASSISTANT"))
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .oauth2Login(login -> login.loginPage("/login_page").successHandler(authenticationSuccessHandler))
+                .userDetailsService(userDetailsService)
+                .formLogin(form -> form
+                        .loginPage("/login_page")
+                        .defaultSuccessUrl("/", true)
+                        .loginProcessingUrl("/login")
+                        .failureUrl("/login_page?error=true").permitAll()
+                )
                 .logout(logout -> logout.logoutUrl("/logout")
                         .permitAll()
-                        .logoutSuccessUrl("/login_page")
+                        .logoutSuccessUrl("/login_page?logout=true")
                         .invalidateHttpSession(true)  // Invalidate session
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID", "SESSION")
